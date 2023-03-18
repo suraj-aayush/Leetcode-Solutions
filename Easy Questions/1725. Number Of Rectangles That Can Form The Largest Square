@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int countGoodRectangles(vector<vector<int>>& rectangles) {
+        int c=0;
+        int k=0;
+        for(auto &r : rectangles)
+        k=max(k,min(r[0],r[1]));
+        for(auto t:rectangles)
+        {
+            if( k == ( min ( t[0],t[1] ) ) )
+            c++;
+        }
+        return c;
+    }
+};
