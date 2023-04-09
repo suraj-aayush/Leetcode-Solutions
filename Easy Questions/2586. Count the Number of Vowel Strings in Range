@@ -1,0 +1,27 @@
+
+class Solution {
+    private:
+    bool isVowel(string str)
+    {
+        if(str[0]=='a'||str[0]=='e'||str[0]=='i'||str[0]=='o'||str[0]=='u')
+        {
+            reverse(str.begin(),str.end());
+            if(str[0]=='a'||str[0]=='e'||str[0]=='i'||str[0]=='o'||str[0]=='u')
+            return true;
+            else
+            return false;
+        }
+        return false;
+    }
+public:
+    int vowelStrings(vector<string>& words, int left, int right) {
+        int ans=0;
+        for(int i=left;i<=right;i++)
+        {
+            if(isVowel(words[i]))
+            ans++;
+        }
+
+        return ans;
+    }
+};
