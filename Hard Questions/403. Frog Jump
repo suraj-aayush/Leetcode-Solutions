@@ -1,0 +1,35 @@
+class Solution {
+public:
+int dp[2001][2001];
+unordered_map<int,int> mp;
+int solve(vector<int>&stones, int cur_idx, int prevjump)
+{
+    if(cur_idx==stones.size()-1)
+    return true;
+
+if(dp[cur_idx][prevjump] != -1)
+return dp[cur_idx][prevjump];
+
+bool result=false;
+for(int nextjump = prevjump-1; nextjump<=prevjump+1; nextjump++)
+{
+    if(nextjump>0)
+    {
+        int next_stone = stones[cur_idx] + nextjump;
+        if(mp.find(next_stone)!=mp.end())
+        {
+            result = result || solve(stones, mp[next_stone], nextjump);
+        }
+    }
+}
+return dp[cur_idx][prevjump] =  result;
+}
+    bool canCross(vector<int>& stones) {
+        
+        for(int i=0;i<stones.size();i++)
+        mp[stones[i]] = i;
+
+memset(dp,-1,sizeof(dp));
+        return solve(stones, 0 , 0);
+    }
+};
