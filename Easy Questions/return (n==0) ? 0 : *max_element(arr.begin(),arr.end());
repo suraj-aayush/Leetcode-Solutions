@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int getMaximumGenerated(int n) {
+        vector<int> v(n+2,0);
+        v[1]=1;
+        for(int i=1;i<=n;i++)
+        {
+            if( 2*i<=n )
+            {
+                v[2*i] = v[i];
+            }
+            if(2*i+1 <= n)
+            v[2*i+1] = v[i] + v[i+1];
+        }
+
+        return (n==0) ? 0 : *max_element(v.begin(),v.end());
+    }
+};
