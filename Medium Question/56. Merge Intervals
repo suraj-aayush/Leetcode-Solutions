@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        int n = intervals.size();
+        vector<vector<int>> ans;
+
+        // Check if intervals is empty
+        if (n == 0) {
+            return ans;
+        }
+
+        sort(intervals.begin(), intervals.end());
+
+        int s = intervals[0][0];
+        int e = intervals[0][1];
+
+        for (int i = 1; i < n; i++) {
+            if (intervals[i][0] <= e) {
+                // Merge the intervals
+                e = max(e, intervals[i][1]);
+            } else {
+                // Add the merged interval to the result
+                ans.push_back({s, e});
+                // Update the start and end for the new interval
+                s = intervals[i][0];
+                e = intervals[i][1];
+            }
+        }
+
+        // Add the last interval to the result
+        ans.push_back({s, e});
+
+        return ans;
+    }
+};
+
+
+
+// class Solution {
+// public:
+//     vector<vector<int>> merge(vector<vector<int>>& intervals) {
+//         int n = intervals.size();
+//         int m = intervals[0].size();   
+//          vector<vector<int>> ans;
+// sort(intervals.begin(), intervals.end());
+//         for(int i=0;i<n-1;i++)
+//         {
+//             int s = intervals[i][0];
+//             int e = intervals[i][1];
+//             for(int j=i+1;j<n;j++)
+//             {
+//                 if(intervals[j][0] <= e)
+//                 {
+//                     e = intervals[j][1];
+//                     i=j;
+//                 }
+//                 else
+//                 continue;
+                
+//             }
+//             vector<int> v={s,e};
+//             ans.push_back(v);
+//         }
+// return ans;
+//     }
+// };
