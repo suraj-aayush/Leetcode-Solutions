@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maximumValue(vector<string>& strs) {
+        int ans = 0;
+        for (const string& str : strs) {
+            bool isNumeric = true;
+            for (char c : str) {
+                if (!isdigit(c)) {
+                    isNumeric = false;
+                    break;
+                }
+            }
+
+            if (isNumeric) {
+                ans = max(ans, stoi(str));
+            } else {
+                ans = max(ans, static_cast<int>(str.length()));
+            }
+        }
+
+        return ans;
+    }
+};
