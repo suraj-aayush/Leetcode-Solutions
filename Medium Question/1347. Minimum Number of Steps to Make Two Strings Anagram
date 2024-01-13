@@ -1,0 +1,27 @@
+
+class Solution {
+public:
+    int minSteps(std::string s, std::string t) {
+        int n = s.length();
+        int o = t.length();
+        
+        if (n != o)
+            return -1;  // or any appropriate value, as 0 might be misleading
+
+        int ans = 0;
+        std::unordered_map<char, int> m;
+
+        for (auto x : s)
+            m[x]++;
+
+        for (auto x : t) {
+            if (m.find(x) != m.end() && m[x] > 0) {
+                m[x]--;
+            } else {
+                ans++;
+            }
+        }
+
+        return ans;
+    }
+};
