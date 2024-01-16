@@ -1,0 +1,32 @@
+class RandomizedSet {
+public:
+
+unordered_set<int> st;
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        if(st.find(val)!=st.end())
+        return 0;
+        else
+        {
+            st.insert(val);
+            return 1;
+        }
+    }
+    
+    bool remove(int val) {
+        if(st.find(val)==st.end())
+        return 0;
+        else
+        {
+            st.erase(val);
+            return 1;    
+        }
+    }
+    
+    int getRandom() {
+       return *next(st.begin(),rand()%st.size());
+    }
+};
