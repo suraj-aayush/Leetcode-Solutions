@@ -1,0 +1,73 @@
+class Solution {
+public:
+
+bool duplicate(string &s1, string &s2)
+{
+    unordered_map<int,int> m;
+    for(auto x:s1)
+    {
+        if(m[x] >0)
+        return true;
+        m[x]++;
+    }
+
+    for(auto x:s2)
+    {
+        if(m.find(x) != m.end())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool hasDuplicate(string &s1, string &s2)
+{
+    int arr[26] = {0};
+    for(char &ch :s1)
+    {
+        if( arr[ch-'a'] >0)
+        return true;
+
+        arr[ch-'a']++;
+    }
+    for(auto x:s2)
+    {
+        if(arr[x-'a'] > 0)
+        return true;
+    }
+    return false;
+}
+
+int solve(int ind, int n, string temp, vector<string>& arr, vector<int> &dp)
+{
+    if(ind >= n)
+    return temp.length();
+
+    // if(dp[ind]!=-1)
+    // return dp[ind];
+
+
+    int take = 0;
+    int notTake = 0;
+
+    if(duplicate(arr[ind], temp))
+    notTake = solve(ind+1, n, temp, arr, dp);
+    else
+    {
+        notTake = solve(ind+1, n, temp, arr, dp);
+        temp += arr[ind];
+        take = solve(ind+1, n, temp, arr, dp);
+    }
+    
+
+    return  max(take, notTake);
+}
+
+    int maxLength(vector<string>& arr) {
+        int n=arr.size();
+        vector<int>dp(n, -1);
+        string temp="";
+        return solve(0, n, temp, arr, dp);
+    }
+};
