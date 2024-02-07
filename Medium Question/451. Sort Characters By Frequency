@@ -1,0 +1,23 @@
+class Solution {
+public:
+static bool compareSecond(const pair<char, int>& a, const pair<char, int>& b) {
+    return a.second > b.second; // Sort in descending order
+}
+    string frequencySort(string s) {
+        string ans="";
+        unordered_map<char,int> mp;
+        for(auto x: s)
+            mp[x]++;
+        vector<pair<char,int>>vec(mp.begin(), mp.end());
+        sort(vec.begin(), vec.end(), compareSecond);
+
+        for(int i=0;i<vec.size();i++)
+        {
+            pair<char,int> p = vec[i];
+            for(int j=0;j<p.second;j++)
+            ans+=p.first;
+        }
+
+        return ans;
+    }
+};
