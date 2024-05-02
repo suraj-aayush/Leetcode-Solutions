@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int findMaxK(vector<int>& nums) {
+        // sort(nums.rbein(), nums.rend());
+        // for(int i=0;i<nums.size()-1;i++)
+        // {
+        //     if(num[i] == -nums[i])
+        // }
+        set<int>st;
+        for(auto x: nums)
+        st.insert(x);
+
+        for(auto x:st)
+        {
+            if(st.find(-x) != st.end())
+            {
+                return -x;
+            }
+        }
+        return -1;
+    }
+};
