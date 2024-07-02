@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        vector<int>ans;
+        int l1=nums1.size();
+        int l2=nums2.size();
+        // int x=max(l1,l2);
+        unordered_map<int,int> m;
+        for(auto x:nums1)
+        m[x]++;
+
+        for(auto x:nums2)
+        {
+            if(m.find(x) != m.end() && m[x]>0)
+            {
+                m[x]--;
+                ans.push_back(x);
+            }
+        }
+
+        return ans;
+    }
+};
