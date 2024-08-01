@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int countSeniors(vector<string>& details) {
+        int c=0;
+        vector<string>v;
+        for(auto x:details)
+        {
+            string str="";
+            str+=x[11];
+            str+=x[12];
+            if(stoi(str)>60)
+            {
+                c++;
+            }
+        }
+        
+        return c;
+    }
+};
