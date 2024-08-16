@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& arrays) {
+        int ans=0;
+        vector<pair<int,int>>vminim;
+        vector<pair<int,int>>vmaxim;
+        int c=0;
+        for(auto x:arrays)
+        {
+            int n = x.size();
+            vminim.push_back({x[0], c});
+            vmaxim.push_back({x[n-1], c});
+
+            c++;
+        }
+
+        sort(vminim.begin(), vminim.end());
+        sort(vmaxim.rbegin(), vmaxim.rend());
+
+int maxim = 0;
+        if (vminim[0].second == vmaxim[0].second) {
+            maxim = abs(vminim[0].first - vmaxim[1].first);
+            maxim = max(maxim, abs(vminim[1].first - vmaxim[0].first));
+            return maxim;
+        }
+
+        return abs(vminim[0].first - vmaxim[0].first);
+    }
+};
