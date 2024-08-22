@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        int n=num;
+        int c=0;
+        while(n)
+        {
+            n/=2;
+            c++;
+        }
+        int x=0;
+        for(int i=0;i<c;i++)
+        x += pow(2,i);
+
+        return num^x;
+    }
+};
