@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string fractionAddition(string expr) {
+        int numer = 0, denom = 1;
+        int i=0;
+        int n = expr.length();
+        while(i<n)
+        {
+            int curNum=0;
+            int curDenom=0;
+
+            bool isNeg = (expr[i] == '-'); // if neg true, else false
+            if(expr[i]=='+' || expr[i]=='-')
+            i++;
+
+            while(i<n && isdigit(expr[i]))
+            {
+                int val = expr[i] - '0';
+                curNum = curNum * 10 + val;
+                i++;
+            }
+            i++; // skipping the divisor symbol (/);
+
+            if(isNeg)
+            curNum = curNum*(-1);
+
+            while(i<n && isdigit(expr[i]))
+            {
+                int val = expr[i] - '0';
+                curDenom = (curDenom*10) +val;
+                i++;
+            }
+            numer = numer*curDenom + curNum*denom;
+            denom = denom * curDenom;
+        }
+        int gcdNum = abs(__gcd(numer, denom));
+        numer /= gcdNum;
+        denom /= gcdNum;
+
+        return to_string(numer) + '/' + to_string(denom);
+    }
+};
