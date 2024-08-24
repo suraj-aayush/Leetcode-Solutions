@@ -1,0 +1,62 @@
+class Solution {
+public:
+
+long solve(long firstHalf, bool isEvenLength)
+{
+    long resultNum = firstHalf;
+
+    if( !isEvenLength )   
+    {
+        firstHalf /= 10;
+    } 
+    while(firstHalf>0)
+    {
+        int digit = firstHalf % 10;
+        resultNum = (resultNum*10) + digit;
+
+        firstHalf /= 10;
+    }
+
+    return resultNum;
+}
+    string nearestPalindromic(string n) {
+        if(n.length()==1)
+        return to_string(n[0]-'0' - 1);
+
+        int l = n.length();
+        int mid = l/2;
+        int firstHalfLength = (l%2==0) ? mid : mid+1;
+        long firstHalf = stol(n.substr(0, firstHalfLength));
+        
+        vector<long> possibleResult;
+
+        possibleResult.push_back(solve(firstHalf, l%2==0));
+        possibleResult.push_back(solve(firstHalf + 1, l%2==0));
+        possibleResult.push_back(solve(firstHalf - 1, l%2==0));
+        possibleResult.push_back((long)pow(10, l-1) - 1);
+        possibleResult.push_back((long)pow(10, l) + 1);
+        
+        long diff = LONG_MAX;
+        long result = -1;
+        long originalNum = stol(n);
+
+        for(long num: possibleResult)
+        {
+            if(num == originalNum)
+            continue;
+
+            if(abs(num-originalNum) < diff)
+            {
+                diff=abs(num-originalNum);
+                result = num;
+                
+            }
+            else if(abs(num-originalNum)==diff)
+            {
+                result = min(result, num);
+            }
+        }
+
+        return to_string(result);
+    }
+};
