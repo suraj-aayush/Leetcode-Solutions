@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int getLucky(string s, int k) {
+        // string str;
+        // map<int,int>m;
+        int arr[27];
+        vector<int>v;
+        for(auto x: s)
+        {
+            int num = x-'a'+1;
+            // m[num]++;
+            arr[num]++;
+            v.push_back(num);
+        }
+int ans=0;   
+        while(k--)
+        {
+            int temp=0;
+            for(auto x:v)
+            {
+                while(x)
+                {
+                    int r = x%10;
+                    temp+=r;
+                    x/=10;
+                }
+            }
+            v.clear();
+            v.push_back(temp);
+            ans=temp;
+
+        }
+
+        return ans;
+    }
+};
