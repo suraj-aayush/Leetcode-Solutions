@@ -1,0 +1,94 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+        vector<vector<int>>arr(m,vector<int>(n,-1));
+        int left = 0;
+        int right = n-1;
+        int top = 0;
+        int bottom = m-1;
+
+        while(head !=NULL)
+        {
+            for(int i=left; head!=NULL && i<=right; i++)
+            {
+                arr[top][i] = head->val;
+                head=head->next;
+            }
+            top++;
+            for(int i=top; head!=NULL && i<=bottom;i++)
+            {
+                arr[i][right] = head->val;
+                head=head->next;
+            }
+            right--;
+            for(int i=right; head!=NULL && i>=left; i--)
+            {
+                arr[bottom][i] = head->val;
+                head=head->next;
+            }
+            bottom--;
+           for (int i = bottom; head!=NULL && i >= top; i--) {
+                arr[i][left] = head->val;
+                head = head->next;
+            }
+            left++;
+
+        }
+
+
+return arr;
+
+
+        // int row=0;
+        // int nrow=m-1;
+        // int col=0;
+        // int ncol=n-1;
+        // int size=n*m;
+        // int c=0;
+        //   while(head != NULL){
+
+        //     for(int i=row;head != NULL && i<=ncol;i++)
+        //     {
+        //         arr[row][i]=head->val;
+        //         c+=1;
+        //         head=head->next;
+        //     }
+        //     row+=1;
+
+        //     for(int i=row;head != NULL && i<=nrow;i++)
+        //     {
+        //         arr[i][ncol]=head->val;
+        //         c+=1;
+        //         head=head->next;
+        //     }
+        //     ncol-=1;
+
+        //     for(int i=ncol;head != NULL && i>=col;i--){
+        //         arr[nrow][i]=head->val;
+        //         c+=1;
+        //         head=head->next;
+        //     }
+        //     nrow-=1;
+
+        //     for(int i=nrow;head != NULL && i>=row;i--){
+        //         arr[i][col]=head->val;
+        //         c+=1;
+        //         head=head->next;
+        //     }
+        //     col+=1;
+
+        // }
+
+        return arr;
+    }
+};
