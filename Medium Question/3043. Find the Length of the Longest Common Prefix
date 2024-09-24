@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
+        unordered_map<string,int>m;
+        for(int num:arr1)
+        {
+            string strNum = to_string(num);
+            string prefix ="";
+            for(auto ch: strNum)
+            {
+                prefix+=ch;
+                m[prefix]++;
+            }
+        }
+
+        int maxi=0;
+        for(auto num:arr2)
+        {
+            string strNum = to_string(num);
+            string prefix = "";
+            for(auto ch: strNum)
+            {
+                prefix+=ch;
+                if(m.find(prefix)!=m.end())
+                {
+                    maxi = max(maxi, static_cast<int>(prefix.length()));
+                }
+            }
+        }
+        return maxi;
+    }
+};
