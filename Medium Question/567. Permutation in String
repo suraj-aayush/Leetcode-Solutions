@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        // If s1 is longer than s2, return false immediately
+        if(s1.size() > s2.size()) return false;
+
+        // generate all permutation of s1
+        // sorting the string to start the next_permutation
+        sort(s1.begin(), s1.end());  
+        do {
+            // iterate through all substrings of s2 with length equal to s1
+            for(int i = 0; i <= s2.size() - s1.size(); i++) {
+                string sub = s2.substr(i, s1.size());
+                if(sub == s1) {
+                    return true;
+                }
+            }
+        } while(next_permutation(s1.begin(), s1.end()));
+
+        // if no match found
+        return false;
+    }
+};
