@@ -1,0 +1,42 @@
+class Solution {
+public:
+
+int m,n;
+vector<int>direction = {-1, 0, 1};
+
+int dfs(int row, int col, vector<vector<int>>&grid, vector<vector<int>>&t)
+{
+    int moves = 0;
+
+    if(t[row][col] != -1)
+    {
+        return t[row][col];
+    }
+    for(int &dir: direction)
+    {
+        int newRow = row + dir;
+        int newCol = col + 1;
+
+        if(newRow >= 0 && newRow <m && newCol < n && grid[newRow][newCol] > grid[row][col])
+        {
+            moves = max(moves, 1 + dfs(newRow, newCol, grid, t));
+        }
+    }
+
+    return t[row][col] = moves;
+}
+
+    int maxMoves(vector<vector<int>>& grid) {
+        m=grid.size();
+        n=grid[0].size();
+
+        vector<vector<int>>t(m, vector<int>(n, -1));
+int res=0;
+        for(int i=0;i<m;i++)
+        {
+            res = max(res, dfs(i, 0, grid, t));
+        }
+
+        return res;
+    }
+};
