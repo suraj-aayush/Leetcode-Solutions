@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string makeFancyString(string s) {
+        if(s.length() < 3)
+        return s;
+string str="";
+str+=s[0];
+        for(int i=1;i<s.length(); i++)
+        {
+            if(s[i] == s[i-1] && s[i] == s[i+1])
+            continue;
+
+            else
+            str+=s[i];
+        }
+
+        return str;
+    }
+};
