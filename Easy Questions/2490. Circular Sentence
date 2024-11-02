@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isCircularSentence(string s) {
+        int n=s.length();
+char lastCharWord, firstCharWord;
+char lastCharLast = s[n-1], firstCharFirst = s[0];
+        for(int i=0;i<n-1;i++)
+        {
+            if(s[i+1] == ' ')
+            {
+                lastCharWord = s[i];
+                firstCharWord = s[i+2];
+
+                if(lastCharWord != firstCharWord)
+                return false;
+            }
+        }
+        if(lastCharLast != firstCharFirst)
+        return false;
+
+        return true;
+    }
+};
