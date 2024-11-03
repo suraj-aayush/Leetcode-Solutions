@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        if(s.length()!=goal.length()) return false;
+
+        return (s + s).find(goal) != string::npos;
+// string doubled = s+s;
+//         for(int i=0;i<s.length();i++)
+//         {
+//             if(doubled.substr(i, goal.length()) == goal)
+//             return true;
+//         }
+
+// return false;
+// The key insight is that when you concatenate a string with itself (s + s), it contains all possible rotations of the original string.
+
+// For example, if s = "abcde", then s + s = "abcdeabcde" contains all rotations: "abcde", "bcdea", "cdeab", "deabc", "eabcd".
+
+// Approach
+// First, check if lengths are equal (if not, rotation is impossible)
+// Create a concatenated string s + s which contains all possible rotations
+// Check if goal is a substring of s + s
+
+        // if(s.length()!=goal.length()) return false;
+        // unordered_map<char,char>m;
+        // for(int i=0; i<s.length()-1; i++)
+        // {
+        //     m[s[i]] = s[i+1];
+        // }
+        // m[s[s.length()-1]] = s[0];
+
+        // for(int i=0;i<goal.length()-1;i++)
+        // {
+        //     if(m[goal[i]] != goal[i+1]) return false;
+        // }
+        // if(m[goal[goal.length()-1]] != goal[0]) return false;
+
+        // return true;
+
+    }
+};
