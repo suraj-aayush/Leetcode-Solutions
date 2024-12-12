@@ -1,0 +1,22 @@
+class Solution {
+public:
+    long long pickGifts(vector<int>& gifts, int k) {
+        priority_queue<int>pq(gifts.begin(), gifts.end());
+        long long ans=0;
+        for(int i=0;i<k;i++)
+        {
+            int num = pq.top();
+            pq.pop();
+            // ans += num;
+            int inserting = floor(sqrt(num));
+            pq.push(inserting);
+        }
+        while(!pq.empty())
+        {
+            ans += pq.top();
+            pq.pop();
+        }
+
+        return ans;
+    }
+};
