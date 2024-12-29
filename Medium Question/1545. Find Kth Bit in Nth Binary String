@@ -9,7 +9,6 @@ public:
             }
             s.push_back(s[i-1] + '1' + string(t.rbegin(), t.rend()));
         }
-
         return s[n-1][k-1];
     }
 };
