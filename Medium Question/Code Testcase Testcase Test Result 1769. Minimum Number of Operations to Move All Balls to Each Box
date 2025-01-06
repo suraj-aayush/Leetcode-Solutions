@@ -1,0 +1,75 @@
+// class Solution {
+// public:
+//     vector<int> minOperations(string s) {
+//         unordered_map<char, int>m;
+//         vector<int>ans;
+//         for(int i=0;i<s.length();i++)
+//         {
+//             if(s[i] == '1')
+//             m[i] = i;
+//         }
+
+//         for(int i=0;i<s.length();i++)
+//         {
+//             int c=0;
+//             for(auto it:m)
+//             {
+//                 if(it.second != i)
+//                 {
+//                     c += abs(it.first - i);
+//                 }
+//             }
+//             ans.push_back(c);
+//         }
+
+//         return ans;
+//     }
+// };
+
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        int n = boxes.length();
+        vector<int> ans(n, 0);
+        
+        int count = 0;      // Number of balls encountered so far
+        int operations = 0; // Cumulative operations needed to bring balls
+        
+        // Left-to-right pass
+        for (int i = 0; i < n; i++) {
+            ans[i] += operations; // Add the current operations count
+            
+            // Update count based on whether the current box contains a ball
+            if (boxes[i] == '1') {
+                count += 1; // Increment count for a ball
+            } else {
+                // No ball in the current box; count remains the same
+                count += 0;
+            }
+            
+            // Update operations to account for the next position
+            operations += count;
+        }
+        
+        count = 0;
+        operations = 0;
+        
+        // Right-to-left pass
+        for (int i = n - 1; i >= 0; i--) {
+            ans[i] += operations; // Add the current operations count
+            
+            // Update count based on whether the current box contains a ball
+            if (boxes[i] == '1') {
+                count += 1; // Increment count for a ball
+            } else {
+                // No ball in the current box; count remains the same
+                count += 0;
+            }
+            
+            // Update operations to account for the next position
+            operations += count;
+        }
+        
+        return ans;
+    }
+};
