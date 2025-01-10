@@ -1,0 +1,33 @@
+class Solution {
+public:
+    map<char, int> m;
+    bool is_subset(string s) {
+        map<char, int> m1;
+        for (auto& i : s)
+            m1[i]++;
+
+        for (auto& i : m) {
+            if (m1[i.first] < i.second)
+                return 0;
+        }
+        return 1;
+    }
+    vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+        
+        for (auto& i : words2) {
+            map<char, int> curr;
+            for (auto& j : i)
+                curr[j]++;
+
+            for (auto& it : curr) {
+                m[it.first] = max(m[it.first], it.second);
+            }
+        }
+        vector<string> ans;
+        for (auto& i : words1) {
+            if (is_subset(i))
+                ans.push_back(i);
+        }
+        return ans;
+    }
+};
