@@ -1,7 +1,7 @@
 class Solution {
 
     public boolean canPartition(int[] nums) {
-        int n=nums.length;
+        int n=nums.length
         int totSum=0;
         for(int i=0;i<n;i++){
             totSum+=nums[i];
