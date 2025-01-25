@@ -1,0 +1,68 @@
+class Solution {
+public:
+    vector<int> lexicographicallySmallestArray(vector<int>& nums, int limit) {
+
+  int n = nums.size();
+        vector<int> v = nums;
+
+        // Sort the array to process the elements in increasing order
+        sort(v.begin(), v.end());
+
+        // Initialize group management
+        int groupNum = 0;
+        unordered_map<int, int> numToGroup;
+        unordered_map<int, list<int>> groupToList;
+
+        // Assign groups based on the absolute difference constraint
+        numToGroup[v[0]] = groupNum;
+        groupToList[groupNum].push_back(v[0]);
+
+        for (int i = 1; i < n; i++) { // Start from i = 1 to avoid out-of-bounds error
+            if (abs(v[i] - v[i - 1]) > limit) {
+                groupNum += 1; // Start a new group
+            }
+            numToGroup[v[i]] = groupNum;
+            groupToList[groupNum].push_back(v[i]);
+        }
+
+        // Merge groups and construct the result
+        vector<int> res(n);
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
+            int grp = numToGroup[num];
+            res[i] = groupToList[grp].front();
+            groupToList[grp].pop_front(); // Remove the element from the group list
+        }
+
+        return res;
+
+//  BRUTE FORCE APPROACH -> 0(N^3)        
+        // int n = nums.size();
+        // for(int i=0;i<n;i++)
+        // {
+        //     while(1)
+        //     {
+        //         int small = nums[i];
+        //         int idx = -1;
+
+        //         for(int j=i+1;j<n;j++)
+        //         {
+        //             if(abs(nums[i] - nums[j] <= limit))
+        //             {
+        //                 if(nums[j] < small)
+        //                 {
+        //                     small = nums[j];
+        //                     idx = j;
+        //                 }
+        //             }
+        //         }
+        //         if(idx!=-1)
+        //         swap(nums[i], nums[idx]);
+        //         else
+        //         break;
+        //     }
+        // }
+
+        // return nums;
+    }
+};
