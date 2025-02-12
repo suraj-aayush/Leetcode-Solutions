@@ -1,0 +1,41 @@
+class Solution {
+public:
+
+int sum(int n)
+{
+    int ans=0;
+    while(n)
+    {
+        ans += n%10;
+        n = n/10;
+    }
+    return ans;
+}
+
+    int maximumSum(vector<int>& nums) {
+        int maxi = -1;
+        unordered_map<int, multiset<int>>m;
+        for(auto &c: nums)
+        {
+            int val = sum(c);
+            m[val].insert(c);
+        }
+        for(auto &it: m)
+        {
+            int sumVal = it.first;
+            int n = it.second.size();
+            if(n >= 2)
+            {
+                auto st = it.second;
+                auto it = st.rbegin();  
+                int last = *it;  
+                it++;  
+                int second_last = *it; 
+                maxi = max(maxi, (last + second_last));
+            }
+            
+        }
+
+        return maxi;
+    }
+};
