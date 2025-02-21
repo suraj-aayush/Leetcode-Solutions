@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class FindElements {
+public:
+
+TreeNode* head;
+
+void solve(TreeNode* root, int x)
+{
+    if(root==NULL) return;
+
+    root->val = x;
+
+    solve(root->left, 2*x+1);
+    solve(root->right, 2*x+2);    
+}
+
+    FindElements(TreeNode* root) {
+        head = root;
+        solve(head, 0);
+    }
+
+bool findTarget(TreeNode* root, int target)
+{
+    if(root==NULL) return false;
+    if(root->val == target) return true;
+
+    return (findTarget(root->left, target) || findTarget(root->right, target));    
+}  
+    bool find(int target) {
+        return findTarget(head, target);
+        
+    }
+};
+
+/**
+ * Your FindElements object will be instantiated and called as such:
+ * FindElements* obj = new FindElements(root);
+ * bool param_1 = obj->find(target);
+ */
