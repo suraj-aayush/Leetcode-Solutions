@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& arr) {
+        long long oddCount = 0, prefixSum = 0;
+        for(int a : arr) {
+            prefixSum += a;
+            oddCount += prefixSum % 2;
+        }
+// oddC = 2, odd += (3 - 2)*2; -> odd += 2 => 4        
+        oddCount += (arr.size() - oddCount) * oddCount;
+        return oddCount % 1'000'000'007;
+    }
+};
