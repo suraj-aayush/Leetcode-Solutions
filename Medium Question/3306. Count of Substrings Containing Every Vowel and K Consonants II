@@ -1,0 +1,80 @@
+class Solution {
+public:
+    long long countOfSubstrings(string word, int k) {
+        int n=word.size();
+
+        unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u'};
+        unordered_map<char, int>m;
+
+        vector<int>nextConsonant(n, n);
+        int lastConsonantIndex = n;
+// for last element, there is no consonant to right of it, 
+// therefore fill that with n, and it will be n by default         
+        for(int i=n-1;i>=0;i--)
+        {
+            nextConsonant[i] = lastConsonantIndex;
+            // if its a consonant, then update last consonant index
+            if (!vowels.count(word[i])) 
+            lastConsonantIndex = i;
+        }
+
+
+int consonant = 0;
+        int i=0, j=0;
+        long long count =0;
+        while(j<n)
+        {
+            char ch = word[j];
+            if (vowels.count(ch))
+            {
+                m[ch]++;
+            }
+            else
+            consonant++;
+
+            // consonant must be always == k
+            while(consonant > k)
+            {
+                char ch = word[i];
+            // agar vowel hai leftmost part of window to map me count ghatao                
+                if (vowels.count(ch))
+                {
+                    m[ch]--;
+                    if(m[ch] == 0)
+                    m.erase(ch);
+
+                }
+                else // else consonant h leftmost part of window
+                consonant--;
+
+                i++;
+            }
+
+             while(m.size() == 5 && consonant==k)
+            {
+                int index = nextConsonant[j];
+                count += index - j;  
+                
+                char ch = word[i];
+                if(vowels.count(ch))
+                {
+                    m[ch]--;
+                    if(m[ch] ==0)
+                        m.erase(ch);
+                }
+                else
+                {
+                    consonant--;
+                }
+
+                
+                i++;
+            }
+
+            j++;
+        }
+
+       return count;
+
+    }
+};
