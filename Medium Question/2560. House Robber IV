@@ -1,0 +1,58 @@
+class Solution {
+public:
+
+// RECURSION FAILS
+
+// int solve(int ind, int k, vector<int>&nums, vector<vector<int>>&dp)
+// {
+//     if (k == 0) return 0; // ✅ If no elements are to be picked, return 0
+//     if (ind == 0) return (k == 1) ? nums[0] : INT_MIN; // ✅ Fix base caset
+
+// if(dp[ind][k] != -1) return dp[ind][k];
+
+//      int notTake = solve(ind - 1, k, nums, dp); // ✅ Always compute this case
+//         int take = INT_MIN;
+
+//         if (ind >= 2) 
+//         take = nums[ind] + solve(ind - 2, k - 1, nums, dp);
+
+//     return dp[ind][k] = max(take, notTake);
+// }
+
+bool isPossible(int mid, int k, vector<int>&nums)
+{
+    int house = 0;
+    for(int i=0;i<nums.size();i++)
+    {
+        if(nums[i] <= mid)
+        {
+            house++;
+            i++; // skip adjacent house
+        }
+    }
+    return house >= k;
+}
+
+    int minCapability(vector<int>& nums, int k) {
+        int n=nums.size();
+        int l = *min_element(nums.begin(), nums.end());
+        int r = *max_element(nums.begin(), nums.end());
+
+        int result = r;
+        while(l<=r)
+        {
+            int mid = l + (r-l)/2;
+            if(isPossible(mid, k, nums))
+            {
+                result = mid;
+                r=mid-1;
+            }
+            else
+            l = mid+1;
+        }
+
+        return result;
+        // vector<vector<int>>dp(n, vector<int>(k+1, -1));
+        // return solve(n-1, k, nums, dp);
+    }
+};
