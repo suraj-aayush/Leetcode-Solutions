@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string pushDominoes(string dominoes) {
+        int n = dominoes.size();
+        vector<int> leftClosest(n, -1);   // stores closest 'R' to the left
+        vector<int> rightClosest(n, -1);  // stores closest 'L' to the right
+
+        // Find closest 'R' to the left for each position
+        for(int i = 0; i < n; i++) {
+            if(dominoes[i] == 'R') {
+                leftClosest[i] = i;
+            } else if(dominoes[i] == '.' && i > 0) {
+                leftClosest[i] = leftClosest[i - 1];
+            }
+        }
+
+        // Find closest 'L' to the right for each position
+        for(int i = n - 1; i >= 0; i--) {
+            if(dominoes[i] == 'L') {
+                rightClosest[i] = i;
+            } else if(dominoes[i] == '.' && i < n - 1) {
+                rightClosest[i] = rightClosest[i + 1];
+            }
+        }
+
+        string result(n, '.');
+
+        for(int i = 0; i < n; i++) {
+            if(dominoes[i] != '.') {
+                result[i] = dominoes[i];
+            } else {
+                int leftR = leftClosest[i];
+                int rightL = rightClosest[i];
+
+                int distR = (leftR == -1) ? INT_MAX : i - leftR;
+                int distL = (rightL == -1) ? INT_MAX : rightL - i;
+
+                if(distR < distL) result[i] = 'R';
+                else if(distL < distR) result[i] = 'L';
+                else result[i] = '.'; // equal force or no force
+            }
+        }
+
+        return result;
+    }
+};
